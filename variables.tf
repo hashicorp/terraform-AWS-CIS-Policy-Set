@@ -32,6 +32,11 @@ variable "name" {
 }
 
 variable "policy_github_repository" {
-  description = "The name of the GitHub repository where the policies reside. This name should also include the GitHub organization followed by a '/'. Example: hashicorp/policy-library-aws-cis-v3.0.0-terraform"
+  description = "The name of the GitHub repository where the policies reside. This name should not include the GitHub organization."
+  type        = string
+}
+
+variable "policy_github_repository_release_tag" {
+  description = "The release tag that will be used to download the policy repo's zipball asset"
   type        = string
 }

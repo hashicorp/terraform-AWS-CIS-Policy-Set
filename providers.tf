@@ -3,10 +3,17 @@ terraform {
     tfe = {
       version = "0.55.0"
     }
+    github = {
+      version = "6.2.1"
+    }
   }
 }
 
 provider "tfe" {
   hostname     = var.tfe_hostname
   organization = var.tfe_organization
+}
+
+provider "github" {
+  token = var.github_oauth_token
 }
