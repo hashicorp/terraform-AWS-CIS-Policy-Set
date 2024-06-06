@@ -5,3 +5,6 @@ terraform.tfvars
 *.tfstate*
 *.tfvars*
 .idea/
+
+downloads/*
+unzipped/*
