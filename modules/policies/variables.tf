@@ -20,11 +20,6 @@ variable "github_oauth_token" {
   type        = string
 }
 
-variable "name" {
-  description = "Common suffix/prefix prepended/appended to all the resources getting created with this module."
-  type        = string
-}
-
 variable "policy_github_repository" {
   description = "The name of the GitHub repository where the policies reside. This name should not include the GitHub organization."
   type        = list(string)

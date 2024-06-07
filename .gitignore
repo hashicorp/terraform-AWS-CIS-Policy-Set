@@ -6,5 +6,6 @@ terraform.tfvars
 *.tfvars*
 .idea/
 
-downloads/*
-unzipped/*
+**/downloads/*
+**/unzipped/*
+input.auto.bak
