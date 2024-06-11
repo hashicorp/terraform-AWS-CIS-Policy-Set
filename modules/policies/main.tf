@@ -38,8 +38,6 @@ resource "null_resource" "download_release" {
 
       mv $(find $UNZIP_DIR -type d -maxdepth 1 -name "hashicorp*") $UNZIP_DIR/src
 
-      rm -rf $DOWNLOAD_DIR
-
     EOT
   }
 }
