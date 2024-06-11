@@ -9,14 +9,8 @@ variable "tfe_organization" {
   type        = string
 }
 
-variable "create_global_policy_set" {
-  description = "If true, the policy set is applied to all the workspaces within the organization."
-  type        = string
-  default     = false
-}
-
-variable "policy_set_workspace_ids" {
-  description = "List of workspace IDs to scope the policy set to. Ignored if `var.create_global_policy_set` is set to true"
+variable "policy_set_workspace_names" {
+  description = "List of workspace names to scope the policy set to. Ignored if `var.create_global_policy_set` is set to true"
   type        = list(string)
   default     = []
 }
@@ -26,14 +20,10 @@ variable "github_oauth_token" {
   type        = string
 }
 
-variable "name" {
-  description = "Common suffix/prefix prepended/appended to all the resources getting created with this module."
-  type        = string
-}
-
 variable "policy_github_repository" {
   description = "The name of the GitHub repository where the policies reside. This name should not include the GitHub organization."
-  type        = string
+  type        = list(string)
+  default     = []
 }
 
 variable "policy_github_repository_release_tag" {
