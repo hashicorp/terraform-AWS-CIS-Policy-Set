@@ -30,7 +30,7 @@ variable "policy_github_repository" {
 
   validation {
     error_message = "Policy GitHub repository must belong to one of the supported repositories."
-    condition     = contains(["policy-library-aws-cis-v1.2.0-terraform", "policy-library-aws-cis-v1.4.0-terraform", "policy-library-aws-cis-v3.0.0-terraform"], var.kind)
+    condition     = contains(["policy-library-aws-cis-v1.2.0-terraform", "policy-library-aws-cis-v1.4.0-terraform", "policy-library-aws-cis-v3.0.0-terraform"], var.policy_github_repository)
   }
 }
 
