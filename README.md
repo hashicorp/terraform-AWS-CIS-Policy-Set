@@ -16,7 +16,7 @@ This repository hosts a terraform module [ootb-policy](./ootb-policy/) to create
 module "cis_v1-2-0_policies" {
   source = "../ootb-policy"
 
-  name                                 = "cis-1.2.0"
+  name                                 = "cis-1-2-0"
   github_oauth_token                   = "<your-pat-token>"
   policy_github_repository             = "policy-library-aws-cis-v1.2.0-terraform"
   policy_github_repository_release_tag = "v0.1.0-alpha"
