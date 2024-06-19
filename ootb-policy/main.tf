@@ -57,23 +57,12 @@ data "tfe_slug" "this" {
   source_path = local.unzipped_policy_dir
 }
 
-resource "tfe_policy_set" "global_policy_set" {
-  count      = var.create_global_policy_set ? 1 : 0
-  depends_on = [data.tfe_slug.this]
-
-  name                = local.policy_set_name
-  description         = local.policy_set_description
-  organization        = var.tfe_organization
-  kind                = local.policy_set_kind
-  policy_tool_version = local.sentinel_version
-  agent_enabled       = true
-  global              = true
-
-  slug = data.tfe_slug.this
+data "tfe_workspace_ids" "workspaces" {
+  names        = var.policy_set_workspace_names
+  organization = var.tfe_organization
 }
 
 resource "tfe_policy_set" "workspace_scoped_policy_set" {
-  count      = !var.create_global_policy_set ? 1 : 0
   depends_on = [data.tfe_slug.this]
 
   name                = local.policy_set_name
@@ -82,27 +71,18 @@ resource "tfe_policy_set" "workspace_scoped_policy_set" {
   kind                = local.policy_set_kind
   policy_tool_version = local.sentinel_version
   agent_enabled       = true
-  workspace_ids       = var.policy_set_workspace_ids
+  workspace_ids       = values(data.tfe_workspace_ids.workspaces.ids)
 
   slug = data.tfe_slug.this
 }
 
 # ------------------------------------------------  
-# Cleanup (Conditional)
+# Cleanup
 # ------------------------------------------------  
 
-locals {
-  cleanup_command = <<EOT
-    UNZIP_DIR="${local.unzipped_policy_dir}"
-
-    rm -rf $UNZIP_DIR
-  EOT
-}
-
-resource "null_resource" "cleanup_1" {
-  count = var.create_global_policy_set ? 1 : 0
+resource "null_resource" "cleanup" {
   depends_on = [
-    tfe_policy_set.global_policy_set[0]
+    tfe_policy_set.workspace_scoped_policy_set
   ]
 
   triggers = {
@@ -110,21 +90,10 @@ resource "null_resource" "cleanup_1" {
   }
 
   provisioner "local-exec" {
-    command = local.cleanup_command
-  }
-}
+    command = <<EOT
+      UNZIP_DIR="${local.unzipped_policy_dir}"
 
-resource "null_resource" "cleanup_2" {
-  count = !var.create_global_policy_set ? 1 : 0
-  depends_on = [
-    tfe_policy_set.workspace_scoped_policy_set[0]
-  ]
-
-  triggers = {
-    timestamp = timestamp()
-  }
-
-  provisioner "local-exec" {
-    command = local.cleanup_command
+      rm -rf $UNZIP_DIR
+    EOT
   }
 }

@@ -1,28 +1,29 @@
-## Terraform config to create policy sets for OOTB sentinel policies
+## Terraform module to create policy sets for OOTB sentinel policies
 
-This repository contains terraform configs to create Policy sets for OOTB policies written in Sentinel. Once applied, all runs within specific/all workspaces will be subjected to policy evaluations between the `plan` and `apply` phases.
+This repository hosts a terraform module [ootb-policy](./ootb-policy/) to create Policy sets for OOTB policies written in Sentinel. Once applied, all runs within specific/all workspaces will be subjected to policy evaluations between the `plan` and `apply` phases.
 
 ### Steps to run the configuration
 
-- Identify the name of the `GitHub` repository where policies are hosted.
+- Set the `TFE_TOKEN` environment to TFC/TFE's API token. This can either be an user token or organization scoped token.
+- Identify the name of the `GitHub` repository where policies are hosted. Currently the module supports three policy standards hosted in the following repos.
+    - [policy-library-aws-cis-v1.2.0-terraform](https://github.com/hashicorp/policy-library-aws-cis-v1.2.0-terraform)
+    - [policy-library-aws-cis-v1.4.0-terraform](https://github.com/hashicorp/policy-library-aws-cis-v1.4.0-terraform)
+    - [policy-library-aws-cis-v3.0.0-terraform](https://github.com/hashicorp/policy-library-aws-cis-v3.0.0-terraform)
 - Identify the name of the TFE/TFC organization where the policy set will get created.
 - Create a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) in GitHub with `repo:read` permissions on the chosen repo in Step 1.
-- Place the inputs in a separate `input.tfvars` file. To create a policy set that is global to the organization, add the following inputs
+- Use the above mentioned inputs to invoke the module for deploying the policy set to TFE/TFC.
 ```hcl
-name                     = "test"
-tfe_organization         = "<your-tfe-org>"
-create_global_policy_set = true
-policy_github_repository = "<policy-github-repo>"
-github_oauth_token       = "<your-pat-token>"
+module "cis_v1-2-0_policies" {
+  source = "../ootb-policy"
+
+  name                                 = "cis-1-2-0"
+  github_oauth_token                   = "<your-pat-token>"
+  policy_github_repository             = "policy-library-aws-cis-v1.2.0-terraform"
+  policy_github_repository_release_tag = "v0.1.0-alpha"
+  tfe_organization                     = "<your-tfe-org>"
+  policy_set_workspace_names           = ["target_workspace_1"]
+}
 ```
-- To create a policy set that is scoped to certain workspaces, add the following inputs
-```hcl
-name                     = "test"
-tfe_organization         = "<your-tfe-org>"
-policy_set_workspace_ids = [ "workspace_id_1", "workspace_id_2" ]
-policy_github_repository = "<policy-github-repo>"
-github_oauth_token       = "<your-pat-token>"
-```
-- Run `terraform plan -var-file=input.tfvars` to view the plan.
-- Run `terraform apply -var-file=input.tfvars` to apply the changes.
+- Run `terraform plan` to view the plan.
+- Run `terraform apply` to apply the changes.
 - After successful creation, you should see sentinel policies getting evaluated in every run of every workspace where the policy set is scoped to.
