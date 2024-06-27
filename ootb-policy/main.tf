@@ -4,13 +4,13 @@ locals {
   policy_set_kind        = "sentinel"
   sentinel_version       = "0.26.0"
 
-  unzipped_policy_dir = "${path.module}/unzipped"
+  unzipped_policy_dir = "${path.module}/${var.name}/unzipped"
   policy_owner        = "hashicorp"
 }
 
-# ------------------------------------------------  
+# ------------------------------------------------
 # Fetch GitHub release assets for policy repo
-# ------------------------------------------------  
+# ------------------------------------------------
 data "github_release" "this" {
   repository  = var.policy_github_repository
   owner       = local.policy_owner
@@ -27,9 +27,9 @@ resource "null_resource" "download_release" {
 
   provisioner "local-exec" {
     command = <<EOT
-      DOWNLOAD_DIR="${path.module}/downloads"
+      DOWNLOAD_DIR="${path.module}/${var.name}/downloads"
       UNZIP_DIR="${local.unzipped_policy_dir}"
-      TEMP_DIR="${path.module}/temp_unzip"
+      TEMP_DIR="${path.module}/${var.name}/temp_unzip"
 
       mkdir -p $DOWNLOAD_DIR
       mkdir -p $UNZIP_DIR
@@ -38,18 +38,18 @@ resource "null_resource" "download_release" {
       curl -L -o "$DOWNLOAD_DIR/${var.policy_github_repository}-${var.policy_github_repository_release_tag}.zip" -H "Authorization: Bearer ${var.github_oauth_token}" ${data.github_release.this.zipball_url}
 
       unzip -o "$DOWNLOAD_DIR/${var.policy_github_repository}-${var.policy_github_repository_release_tag}.zip" -d $TEMP_DIR
-      
+
       mv $TEMP_DIR/*/* $UNZIP_DIR
 
       rm -rf $TEMP_DIR
-      rm -rf $DOWNLOAD_DIR
+      # rm -rf $DOWNLOAD_DIR
     EOT
   }
 }
 
-# ------------------------------------------------  
+# ------------------------------------------------
 # Policy Set creation
-# ------------------------------------------------  
+# ------------------------------------------------
 
 data "tfe_slug" "this" {
   depends_on = [null_resource.download_release]
@@ -76,9 +76,9 @@ resource "tfe_policy_set" "workspace_scoped_policy_set" {
   slug = data.tfe_slug.this
 }
 
-# ------------------------------------------------  
+# ------------------------------------------------
 # Cleanup
-# ------------------------------------------------  
+# ------------------------------------------------
 
 resource "null_resource" "cleanup" {
   depends_on = [
@@ -91,9 +91,7 @@ resource "null_resource" "cleanup" {
 
   provisioner "local-exec" {
     command = <<EOT
-      UNZIP_DIR="${local.unzipped_policy_dir}"
-
-      rm -rf $UNZIP_DIR
+      rm -rf ${path.module}/${var.name}
     EOT
   }
 }
