@@ -5,3 +5,4 @@ terraform.tfvars
 *.tfstate*
 *.tfvars*
 .idea/
+.DS_Store
