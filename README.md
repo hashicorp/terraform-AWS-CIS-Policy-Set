@@ -1,3 +1,5 @@
+## POC CODE - NO LONGER IN USE ##
+
 ## Terraform module to create policy sets for OOTB sentinel policies
 
 This repository hosts a terraform module [ootb-policy](./ootb-policy/) to create Policy sets for OOTB policies written in Sentinel. Once applied, all runs within specific/all workspaces will be subjected to policy evaluations between the `plan` and `apply` phases.
