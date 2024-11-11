@@ -4,7 +4,7 @@ locals {
   policy_set_kind        = "sentinel"
   sentinel_version       = "0.26.0"
 
-  unzipped_policy_dir = "${path.module}/unzipped"
+  unzipped_policy_dir = "${path.module}/unzipped-${var.name}"
   policy_owner        = "hashicorp"
 }
 
@@ -15,9 +15,9 @@ resource "null_resource" "download_release" {
 
   provisioner "local-exec" {
     command = <<EOT
-      DOWNLOAD_DIR="${path.module}/downloads"
+      DOWNLOAD_DIR="${path.module}/downloads-${var.name}"
       UNZIP_DIR="${local.unzipped_policy_dir}"
-      TEMP_DIR="${path.module}/temp_unzip"
+      TEMP_DIR="${path.module}/temp_unzip-${var.name}"
 
       mkdir -p $DOWNLOAD_DIR
       mkdir -p $UNZIP_DIR
