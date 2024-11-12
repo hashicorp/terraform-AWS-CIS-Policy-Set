@@ -9,12 +9,12 @@ variable "policy_set_workspace_names" {
 }
 
 variable "name" {
-  description = "Common suffix/prefix prepended/appended to all the resources getting created with this module."
+  description = "Common prefix prepended to all the resources getting created with this module."
   type        = string
 }
 
 variable "policy_github_repository" {
-  description = "The name of the GitHub repository where the policies reside. This name should not include the GitHub organization."
+  description = "List of name of the GitHub repositories where the policies reside. These name should not include the GitHub organization."
   type        = list(string)
   default     = [ "policy-library-cis-aws-cloudtrail-terraform", "policy-library-cis-aws-ec2-terraform", "policy-library-cis-aws-efs-terraform", "policy-library-cis-aws-iam-terraform", "policy-library-cis-aws-rds-terraform", "policy-library-cis-aws-s3-terraform", "policy-library-cis-aws-kms-terraform", "policy-library-cis-aws-vpc-terraform" ] 
 }

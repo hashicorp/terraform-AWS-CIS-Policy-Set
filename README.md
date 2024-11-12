@@ -7,16 +7,22 @@ This repository hosts a terraform module [pre-written-policy](./pre-written-poli
 ### Steps to run the configuration
 
 - Set the `TFE_TOKEN` environment to TFC/TFE's API token. This can either be an user token or organization scoped token.
-- Identify the name of the `GitHub` repository where policies are hosted.
 - Identify the name of the TFE/TFC organization where the policy set will get created.
-- Create a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) in GitHub with `repo:read` permissions on the chosen repo in Step 1.
-- Use the above mentioned inputs to invoke the module for deploying the policy set to TFE/TFC.
+- By default, the module supports eight policy repositories, which are hosted in the following locations.
+    - [policy-library-cis-aws-cloudtrail-terraform](https://github.com/hashicorp/policy-library-cis-aws-cloudtrail-terraform)
+    - [policy-library-cis-aws-ec2-terraform](https://github.com/hashicorp/policy-library-cis-aws-ec2-terraform)
+    - [policy-library-cis-aws-efs-terraform](https://github.com/hashicorp/policy-library-cis-aws-efs-terraform)
+    - [policy-library-cis-aws-iam-terraform](https://github.com/hashicorp/policy-library-cis-aws-iam-terraform)
+    - [policy-library-cis-aws-rds-terraform](https://github.com/hashicorp/policy-library-cis-aws-rds-terraform)
+    - [policy-library-cis-aws-s3-terraform](https://github.com/hashicorp/policy-library-cis-aws-s3-terraform)
+    - [policy-library-cis-aws-kms-terraform](https://github.com/hashicorp/policy-library-cis-aws-kms-terraform)
+    - [policy-library-cis-aws-vpc-terraform](https://github.com/hashicorp/policy-library-cis-aws-vpc-terraform)
+- Use the below mentioned inputs to invoke the module for deploying the policy set to TFE/TFC.
 ```hcl
 module "cis_v1-2-0_policies" {
-  source = "../pre-written-policy"
+  source = "./pre-written-policy"
 
-  name                                 = "cis-1-2-0"
-  policy_github_repository             = "policy-library-aws-cis-v1.2.0-terraform"
+  name                                 = "<your-policy-set>"
   tfe_organization                     = "<your-tfe-org>"
   policy_set_workspace_names           = ["target_workspace_1"]
 }
