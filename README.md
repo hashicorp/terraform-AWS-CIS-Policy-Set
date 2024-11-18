@@ -1,6 +1,4 @@
-## POC CODE - NO LONGER IN USE ##
-
-## Terraform module to create policy sets for Pre-written sentinel policies
+## Terraform module to create policy sets for Pre-written Sentinel policies
 
 This repository hosts a terraform module [pre-written-policy](./pre-written-policy/) to create Policy sets for Pre-written policies written in Sentinel. Once applied, all runs within specific/all workspaces will be subjected to policy evaluations between the `plan` and `apply` phases.
 
@@ -17,6 +15,7 @@ This repository hosts a terraform module [pre-written-policy](./pre-written-poli
     - [policy-library-cis-aws-s3-terraform](https://github.com/hashicorp/policy-library-cis-aws-s3-terraform)
     - [policy-library-cis-aws-kms-terraform](https://github.com/hashicorp/policy-library-cis-aws-kms-terraform)
     - [policy-library-cis-aws-vpc-terraform](https://github.com/hashicorp/policy-library-cis-aws-vpc-terraform)
+- Users have the flexibility to modify or extend the default policy repositories. You can specify custom policy repositories using the optional `policy_github_repository` parameter. This parameter accepts a list of GitHub repository names, but **note that the repositories must be hosted under the HashiCorp organization**.
 - Use the below mentioned inputs to invoke the module for deploying the policy set to TFE/TFC.
 ```hcl
 module "cis_v1-2-0_policies" {
@@ -29,4 +28,4 @@ module "cis_v1-2-0_policies" {
 ```
 - Run `terraform plan` to view the plan.
 - Run `terraform apply` to apply the changes.
-- After successful creation, you should see sentinel policies getting evaluated in every run of every workspace where the policy set is scoped to.
+- After successful creation, you should see Sentinel policies getting evaluated in every run of every workspace where the policy set is scoped to.

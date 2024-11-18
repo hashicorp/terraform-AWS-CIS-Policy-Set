@@ -4,8 +4,7 @@ locals {
   policy_set_kind        = "sentinel"
   sentinel_version       = "0.26.0"
 
-  unzipped_policy_dir = "${path.module}/unzipped-${var.name}"
-  policy_owner        = "hashicorp"
+  unzipped_policy_dir    = "${path.module}/unzipped-${var.name}"
 }
 
 resource "null_resource" "download_release" {
@@ -23,9 +22,9 @@ resource "null_resource" "download_release" {
       mkdir -p $UNZIP_DIR
       mkdir -p $TEMP_DIR
 
-      latest_tag=$(curl -s https://api.github.com/repos/hashicorp/${var.policy_github_repository}/tags | jq -r '.[0].name')
+      latest_tag=$(curl -s https://api.github.com/repos/${var.policy_owner}/${var.policy_github_repository}/tags | jq -r '.[0].name')
 
-      zip_url="https://api.github.com/repos/hashicorp/${var.policy_github_repository}/zipball/refs/tags/$latest_tag"
+      zip_url="https://api.github.com/repos/${var.policy_owner}/${var.policy_github_repository}/zipball/refs/tags/$latest_tag"
 
       curl -L -o "$DOWNLOAD_DIR/$latest_tag.zip" "$zip_url"
 
