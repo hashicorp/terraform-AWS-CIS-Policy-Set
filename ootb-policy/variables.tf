@@ -1,3 +1,5 @@
+// Copyright (c) HashiCorp, Inc.
+// SPDX-License-Identifier: BUSL-1.1
 variable "tfe_hostname" {
   description = "Host name for the TFE instance. Defaults to TFC i.e. app.terraform.io if unspecified"
   type        = string
