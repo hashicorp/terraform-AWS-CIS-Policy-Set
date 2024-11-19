@@ -1,3 +1,6 @@
+// Copyright (c) HashiCorp, Inc.
+// SPDX-License-Identifier: BUSL-1.1
+
 locals {
   policy_set_name        = "${var.name}-policy-set"
   policy_set_description = "Policy set created via terraform to evaluate resources against Sentinel policies"
