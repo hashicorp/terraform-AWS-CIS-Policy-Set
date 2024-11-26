@@ -32,7 +32,7 @@ module "cis_v1-2-0_policies" {
 
 ## Authors
 
-HashiCorp Solutions Engineering Team.
+HashiCorp Engineering Team
 
 ## License
 
