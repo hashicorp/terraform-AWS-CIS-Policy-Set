@@ -1,4 +1,4 @@
-module "cis_v1-2-0_policies" {
+module "cis-policies" {
   source = "./pre-written-policy"
 
   for_each                             = { for idx, value in var.policy_github_repository : idx => value }

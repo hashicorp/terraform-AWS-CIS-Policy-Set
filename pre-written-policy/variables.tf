@@ -26,3 +26,9 @@ variable "policy_github_repository" {
   description = "The name of the GitHub repository where the policies reside. This name should not include the GitHub organization."
   type        = string
 }
+
+variable "policy_owner" {
+  description = "The name of the individual or team responsible for managing and maintaining the policy set."
+  type        = string
+  default     = "hashicorp"
+}
