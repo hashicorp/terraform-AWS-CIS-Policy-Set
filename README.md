@@ -29,3 +29,11 @@ module "cis_v1-2-0_policies" {
 - Run `terraform plan` to view the plan.
 - Run `terraform apply` to apply the changes.
 - After successful creation, you should see Sentinel policies getting evaluated in every run of every workspace where the policy set is scoped to.
+
+## Authors
+
+HashiCorp Solutions Engineering Team.
+
+## License
+
+Business Source License 1.1. See LICENSE for full details.
