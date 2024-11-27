@@ -1,6 +1,6 @@
-## Terraform module to create policy sets for Pre-written Sentinel policies
+## Terraform Module to onboard Pre-written Sentinel Policies for CIS AWS Foundations Benchmark
 
-This repository hosts a terraform module [pre-written-policy](./pre-written-policy/) to create Policy sets for Pre-written policies written in Sentinel. Once applied, all runs within specific/all workspaces will be subjected to policy evaluations between the `plan` and `apply` phases.
+This repository hosts the [pre-written-policy](https://github.com/hashicorp/terraform-aws-cis-benchmark/tree/main/pre-written-policy) Terraform module, designed to simplify the onboarding of pre-written Sentinel policies into your Terraform environment. This module enables the creation of `Policy Sets` for pre-written Sentinel policies for CIS AWS Foundations Benchmark, ensuring consistent compliance and governance across your Terraform workflows.
 
 ### Steps to run the configuration
 
