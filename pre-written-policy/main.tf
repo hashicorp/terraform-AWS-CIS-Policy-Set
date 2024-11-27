@@ -7,40 +7,31 @@ locals {
   policy_set_kind        = "sentinel"
   sentinel_version       = "0.26.0"
 
-  unzipped_policy_dir = "${path.module}/unzipped"
-  policy_owner        = "hashicorp"
-}
-
-# ------------------------------------------------  
-# Fetch GitHub release assets for policy repo
-# ------------------------------------------------  
-data "github_release" "this" {
-  repository  = var.policy_github_repository
-  owner       = local.policy_owner
-  retrieve_by = "tag"
-  release_tag = var.policy_github_repository_release_tag
+  unzipped_policy_dir    = "${path.module}/unzipped-${var.name}"
 }
 
 resource "null_resource" "download_release" {
-  depends_on = [data.github_release.this]
-
   triggers = {
     timestamp = timestamp()
   }
 
   provisioner "local-exec" {
     command = <<EOT
-      DOWNLOAD_DIR="${path.module}/downloads"
+      DOWNLOAD_DIR="${path.module}/downloads-${var.name}"
       UNZIP_DIR="${local.unzipped_policy_dir}"
-      TEMP_DIR="${path.module}/temp_unzip"
+      TEMP_DIR="${path.module}/temp_unzip-${var.name}"
 
       mkdir -p $DOWNLOAD_DIR
       mkdir -p $UNZIP_DIR
       mkdir -p $TEMP_DIR
 
-      curl -L -o "$DOWNLOAD_DIR/${var.policy_github_repository}-${var.policy_github_repository_release_tag}.zip" -H "Authorization: Bearer ${var.github_oauth_token}" ${data.github_release.this.zipball_url}
+      latest_tag=$(curl -s https://api.github.com/repos/${var.policy_owner}/${var.policy_github_repository}/tags | jq -r '.[0].name')
 
-      unzip -o "$DOWNLOAD_DIR/${var.policy_github_repository}-${var.policy_github_repository_release_tag}.zip" -d $TEMP_DIR
+      zip_url="https://api.github.com/repos/${var.policy_owner}/${var.policy_github_repository}/zipball/refs/tags/$latest_tag"
+
+      curl -L -o "$DOWNLOAD_DIR/$latest_tag.zip" "$zip_url"
+
+      unzip -o "$DOWNLOAD_DIR/$latest_tag.zip" -d $TEMP_DIR
       
       mv $TEMP_DIR/*/* $UNZIP_DIR
 
