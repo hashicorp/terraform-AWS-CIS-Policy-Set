@@ -7,14 +7,14 @@ This repository hosts the [pre-written-policy](https://github.com/hashicorp/terr
 - Set the `TFE_TOKEN` environment to TFC/TFE's API token. This can either be an user token or organization scoped token.
 - Identify the name of the TFE/TFC organization where the policy set will get created.
 - By default, the module supports eight policy repositories, which are hosted in the following locations.
-    - [policy-library-cis-aws-cloudtrail-terraform](https://github.com/hashicorp/policy-library-cis-aws-cloudtrail-terraform)
-    - [policy-library-cis-aws-ec2-terraform](https://github.com/hashicorp/policy-library-cis-aws-ec2-terraform)
-    - [policy-library-cis-aws-efs-terraform](https://github.com/hashicorp/policy-library-cis-aws-efs-terraform)
-    - [policy-library-cis-aws-iam-terraform](https://github.com/hashicorp/policy-library-cis-aws-iam-terraform)
-    - [policy-library-cis-aws-rds-terraform](https://github.com/hashicorp/policy-library-cis-aws-rds-terraform)
-    - [policy-library-cis-aws-s3-terraform](https://github.com/hashicorp/policy-library-cis-aws-s3-terraform)
-    - [policy-library-cis-aws-kms-terraform](https://github.com/hashicorp/policy-library-cis-aws-kms-terraform)
-    - [policy-library-cis-aws-vpc-terraform](https://github.com/hashicorp/policy-library-cis-aws-vpc-terraform)
+    - [policy-library-CIS-Policy-Set-for-AWS-CloudTrail-Terraform](https://github.com/hashicorp/policy-library-CIS-Policy-Set-for-AWS-CloudTrail-Terraform)
+    - [policy-library-CIS-Policy-Set-for-AWS-EC2-Terraform](https://github.com/hashicorp/policy-library-CIS-Policy-Set-for-AWS-EC2-Terraform)
+    - [policy-library-CIS-Policy-Set-for-AWS-EFS-Terraform](https://github.com/hashicorp/policy-library-CIS-Policy-Set-for-AWS-EFS-Terraform)
+    - [policy-library-CIS-Policy-Set-for-AWS-IAM-Terraform](https://github.com/hashicorp/policy-library-CIS-Policy-Set-for-AWS-IAM-Terraform)
+    - [policy-library-CIS-Policy-Set-for-AWS-KMS-Terraform](https://github.com/hashicorp/policy-library-CIS-Policy-Set-for-AWS-KMS-Terraform)
+    - [policy-library-CIS-Policy-Set-for-AWS-RDS-Terraform](https://github.com/hashicorp/policy-library-CIS-Policy-Set-for-AWS-RDS-Terraform)
+    - [policy-library-CIS-Policy-Set-for-AWS-S3-Terraform](https://github.com/hashicorp/policy-library-CIS-Policy-Set-for-AWS-S3-Terraform)
+    - [policy-library-CIS-Policy-Set-for-AWS-VPC-Terraform](https://github.com/hashicorp/policy-library-CIS-Policy-Set-for-AWS-VPC-Terraform)
 - Users have the flexibility to modify or extend the default policy repositories. You can specify custom policy repositories using the optional `policy_github_repository` parameter. This parameter accepts a list of GitHub repository names, but **note that the repositories must be hosted under the HashiCorp organization**.
 - Use the below mentioned inputs to invoke the module for deploying the policy set to TFE/TFC.
 ```hcl
