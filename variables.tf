@@ -16,5 +16,5 @@ variable "name" {
 variable "policy_github_repository" {
   description = "List of name of the GitHub repositories where the policies reside. These name should not include the GitHub organization."
   type        = list(string)
-  default     = [ "policy-library-cis-aws-cloudtrail-terraform", "policy-library-cis-aws-ec2-terraform", "policy-library-cis-aws-efs-terraform", "policy-library-cis-aws-iam-terraform", "policy-library-cis-aws-rds-terraform", "policy-library-cis-aws-s3-terraform", "policy-library-cis-aws-kms-terraform", "policy-library-cis-aws-vpc-terraform" ] 
+  default     = [ "policy-library-CIS-Policy-Set-for-AWS-CloudTrail-Terraform", "policy-library-CIS-Policy-Set-for-AWS-EC2-Terraform", "policy-library-CIS-Policy-Set-for-AWS-EFS-Terraform", "policy-library-CIS-Policy-Set-for-AWS-IAM-Terraform", "policy-library-CIS-Policy-Set-for-AWS-KMS-Terraform", "policy-library-CIS-Policy-Set-for-AWS-S3-Terraform", "policy-library-CIS-Policy-Set-for-AWS-VPC-Terraform", "policy-library-CIS-Policy-Set-for-AWS-RDS-Terraform" ] 
 }
