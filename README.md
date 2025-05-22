@@ -6,7 +6,7 @@ This repository contains the Terraform module for pre-written policies, designed
 
 - Set the `TFE_TOKEN` environment to TFC/TFE's API token. This can either be an user token or organization scoped token.
 - Identify the name of the TFE/TFC organization where the policy set will get created.
-- By default, the module supports eight policy repositories, which are hosted in the following locations.
+- By default, the module supports following policy repositories, which are hosted in the following locations.
     - [policy-library-CIS-Policy-Set-for-AWS-Terraform](https://github.com/hashicorp/policy-library-CIS-Policy-Set-for-AWS-Terraform)
     - [policy-library-FSBP-Policy-Set-for-AWS-Terraform](https://github.com/hashicorp/policy-library-FSBP-Policy-Set-for-AWS-Terraform/)
 - Users have the flexibility to modify or extend the default policy repositories. You can specify custom policy repositories using the optional `policy_github_repository` parameter. This parameter accepts a list of GitHub repository names, but **note that the repositories must be hosted under the HashiCorp organization**.
