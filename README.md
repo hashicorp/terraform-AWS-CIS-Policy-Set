@@ -1,3 +1,10 @@
+# 🚨 Deprecation Notice 🚨
+
+This module will be **deprecated on July 11, 2025**, and will no longer be maintained after that date.  
+You may continue to use the pre-written policies via the [Terraform Public Registry](https://registry.terraform.io/search/policies?q=pre-written).   
+
+Thank you for your continued support and understanding.  
+
 ## Terraform Module to onboard Pre-written Sentinel Policies for CIS AWS Foundations Benchmark
 
 This repository hosts the [pre-written-policy](https://github.com/hashicorp/terraform-aws-cis-benchmark/tree/main/pre-written-policy) Terraform module, designed to simplify the onboarding of pre-written Sentinel policies into your Terraform environment. This module enables the creation of `Policy Sets` for pre-written Sentinel policies for CIS AWS Foundations Benchmark, ensuring consistent compliance and governance across your Terraform workflows.
